@@ -11,7 +11,7 @@ from email.mime.multipart import MIMEMultipart
 smtpserver = 'smtp.qq.com'
 #发送邮箱用户/密码
 user = '671313512'
-password = 'oiesdcrcgrtqbcdb'
+password = ''
 #发送邮箱
 sender = '671313512@qq.com'
 
