@@ -42,6 +42,5 @@ if __name__ == '__main__':
     runner = HTMLTestRunner.HTMLTestRunner(stream=fp,
                             title='百度搜索报告',
                             description='用例执行情况:')
-    print("33333")
     runner.run(suite)
     fp.close()
