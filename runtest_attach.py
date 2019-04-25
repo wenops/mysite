@@ -30,17 +30,30 @@ def send_mail(file_new):
     # 发送邮件主题s
     subject = 'Python email test'
 
-    # 发送的附件
+    # 发送不带附件版本
     #sendfile = open('D:\\mysite\\mysite\\report\\result.html', 'rb').read()
-    msg = MIMEText(sendfile,'html','utf-8')
-    msg['Subject'] = subject
-    msg['From'] = formataddr(['', sender])
-    msg['To'] = formataddr(['', receiver])
+    # msg = MIMEText(sendfile,'html','utf-8')
+    # msg['Subject'] = subject
+    # msg['From'] = formataddr(['', sender])
+    # msg['To'] = formataddr(['', receiver])
+
+    #发送带附件版本
+    att = MIMEText(sendfile,'html','utf-8')
+    att["Content-Type"] = 'application/octet-stream'
+    att["Content-Disposition"] = 'attachment;filename="result.html"'
+    msgRoot = MIMEMultipart('related')
+    msgRoot['Subject'] = subject
+    msgRoot['From'] = formataddr(['发件人昵称', sender])
+    msgRoot['To'] = formataddr(['收件人昵称', receiver])
+
+    msgRoot.attach(att)
+
+
     # 连接发送邮件
     smtp = smtplib.SMTP()
     smtp.connect(smtpserver)
     smtp.login(sender, password)
-    smtp.sendmail(sender, receiver, msg.as_string())
+    smtp.sendmail(sender, receiver, msgRoot.as_string())
     smtp.quit()
     print("email has send out")
 
