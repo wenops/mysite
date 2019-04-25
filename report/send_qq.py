@@ -4,6 +4,7 @@ import smtplib
 from email.mime.text import MIMEText
 from email.header import Header
 from email.utils import formataddr
+from email.mime.multipart import MIMEMultipart
 
 
 #发送邮箱服务器
@@ -19,14 +20,27 @@ receiver = 'dengwenyong@redbirdedu.com'
 #发送邮件主题s
 subject = 'Python email test'
 
-#编写HTML类型的邮件正文
+# #编写HTML类型的邮件正文
 msg = MIMEText('<html><h1>你好！</h1></html>','html','utf-8')
-msg['From'] =  formataddr(['发件人昵称',sender])
+msg['From'] = formataddr(['发件人昵称',sender])
 msg['To'] = formataddr(['收件人昵称',receiver])
 msg['Subject'] = Header(subject,'utf-8')
+#发送的附件
+sendfile = open('D:\\mysite\\mysite\\log.txt','rb').read()
+att = MIMEText(sendfile,'base64','utf-8')
+att["Content-Type"] = 'application/octet-stream'
+att["Content-Disposition"] = 'attachment;filename="log.txt"'
+msgRoot = MIMEMultipart('related')
+msgRoot['Subject'] = subject
+msgRoot['From'] = formataddr(['发件人昵称',sender])
+msgRoot['To'] = formataddr(['收件人昵称',receiver])
+
+msgRoot.attach(att)
+
 
 #连接发送邮件
-smtp = smtplib.SMTP_SSL(smtpserver,465)
+smtp = smtplib.SMTP()
+smtp.connect(smtpserver)
 smtp.login(sender,password)
-smtp.sendmail(sender,receiver,msg.as_string())
+smtp.sendmail(sender,receiver,msgRoot.as_string())
 smtp.quit()
