@@ -26,11 +26,11 @@ msg['From'] = formataddr(['发件人昵称',sender])
 msg['To'] = formataddr(['收件人昵称',receiver])
 msg['Subject'] = Header(subject,'utf-8')
 #发送的附件
-sendfile = open('D:\\mysite\\mysite\\log.txt','rb').read()
-att = MIMEText(sendfile,'base64','utf-8')
+sendfile = open('D:\\mysite\\mysite\\report\\result.html','rb').read()
+att = MIMEText(sendfile,'html','utf-8')
 att["Content-Type"] = 'application/octet-stream'
-att["Content-Disposition"] = 'attachment;filename="log.txt"'
-msgRoot = MIMEMultipart('related')
+att["Content-Disposition"] = 'attachment;filename="result.html"'
+msgRoot = MIMEMultipart()
 msgRoot['Subject'] = subject
 msgRoot['From'] = formataddr(['发件人昵称',sender])
 msgRoot['To'] = formataddr(['收件人昵称',receiver])
