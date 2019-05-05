@@ -20,7 +20,7 @@ class Send_Mail(unittest.TestCase):
         driver.get(self.base_url+"/")
         driver.find_element_by_id("u").clear()
         driver.find_element_by_id("u").send_keys("671313512@qq.com")
-        driver.find_element_by_id("p").send_keys("wen626026707")
+        driver.find_element_by_id("p").send_keys("****")
         driver.find_element_by_id("login_button").click()
 
     def tearDown(self):
